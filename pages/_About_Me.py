@@ -35,7 +35,7 @@ with tab1:
     st.write("- **Languages:** Python")
     st.write("- **Cloud Compute:** AWS Console & Architecture")
     st.write("- **Frameworks & Tools:** Streamlit, APIs, Git/GitHub")
-    st.write("- **Concepts:** Data Structures & Algorithms, Quality Assurance, Data Virtualization, Machine Learning & Artificial Intelligence")
+    st.write("- **Concepts:** Data Structures & Algorithms, Data Virtualization, Machine Learning & Artificial Intelligence")
 
 with tab2:
     st.write("### Professional Credentials")
