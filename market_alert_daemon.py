@@ -10,7 +10,7 @@ import os
 
 # --- CONFIGURATION ---
 SENDER_EMAIL = "emwangi4777@gmail.com" 
-SENDER_PASSWORD = "" 
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 RECEIVER_EMAIL = "emwangi4777@gmail.com" 
 # ---------------------
 

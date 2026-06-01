@@ -5,6 +5,9 @@ import streamlit as st
 import requests
 import yfinance as yf
 import pandas as pd
+import os
+from dotenv import load_dotenv
+
 
 st.set_page_config(page_title="Projects", layout="wide", page_icon="💻")
 
@@ -25,14 +28,18 @@ st.divider() # Adds horizontal line to the page
 
 # ---- WEATHER APP SECTION ----
 
+# Load environment variables from .env file
+load_dotenv()
+
+
 st.subheader("Live Weather App")
 st.write("A python application built utilizing external API to display the current weather conditions of a requested city.  ")
 
 # Expander to create a collapsible section to hide extra details
 with st.expander("Launch Weather App", expanded=True): 
 
-    # Set up the API variables
-    API_KEY = st.secrets["WEATHER_API_KEY"] # OpenWeatherMap API Key    
+    # Set up the API variabless
+    API_KEY = os.getenv("WEATHER_API_KEY") # OpenWeatherMap API Key    
     BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
     # Create user interface for the app
