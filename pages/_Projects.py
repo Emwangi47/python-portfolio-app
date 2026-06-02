@@ -3,8 +3,6 @@ from importlib import readers
 # pyrefly: ignore [missing-import]
 import streamlit as st
 import requests
-import yfinance as yf
-import pandas as pd
 import os
 from dotenv import load_dotenv
 
@@ -72,77 +70,8 @@ with st.expander("Launch Weather App", expanded=True):
     else:
         st.warning("Please enter a city name first")
 
-st.divider()
 
-# --- MARKET TRACKER CARD ---
-st.subheader("📈 Market Tracker & Alert Automation")
-st.write("A dual-component architecture featuring a live dashboard and a headless background daemon that sends automated HTML email alerts.")
 
-with st.expander("Launch Market Tracker Dashboard", expanded=True):
-    st.info("📊 **Live Dashboard Component:** Track your portfolio against the 7-day and 30-day Moving Average.")
 
-    # We use regular columns here instead of the sidebar to keep the UI contained
-    input_col1, input_col2 = st.columns([3, 1])
-    
-    with input_col1:
-        ticker_input = st.text_input("Enter Stock Tickers (comma separated):", "AAPL, MSFT, GOOGL, AMZN, TSLA, NVDA, META") 
-    
-    with input_col2:
-        time_period = st.selectbox("Select Time Period:", ["1mo", "3mo", "6mo", "1y", "2y", "5y"], index=2)
-
-    # Clean up user input into a neat Python list 
-    tickers = [ticker.strip().upper() for ticker in ticker_input.split(",") if ticker.strip()]
-
-    if tickers:
-        # Main Dashboard Loop
-        for ticker in tickers:
-            st.write(f"### 📊 {ticker}")
-
-            # Fetch data
-            stock = yf.Ticker(ticker)
-            history = stock.history(period=time_period)
-
-            if history.empty:
-                st.warning(f"Could not fetch data for {ticker}. Please check the ticker symbol and try again.")
-                continue
-
-            # Calculate the moving averages
-            history['7MA'] = history['Close'].rolling(window=7).mean()
-            history['30MA'] = history['Close'].rolling(window=30).mean()
-
-            # Get the latest data
-            latest_price = history.iloc[-1]['Close']
-            latest_ma = history.iloc[-1]['7MA']
-
-            # Create columns for clean layout
-            col1, col2, col3 = st.columns(3)
-
-            # Display massive numbers (Metrics)
-            col1.metric("Current Price", f"${latest_price:.2f}")
-            col2.metric("7-Day MA", f"${latest_ma:.2f}")
-
-            # Logic for Alert Status (Red or Green Boxes)
-            if latest_price < latest_ma:
-                col3.error("🚨 STATUS: BELOW AVERAGE")
-            else:
-                col3.success("✅ STATUS: ABOVE AVERAGE")
-
-            # Plotting the Chart
-            chart_data = history[['Close', '7MA', '30MA']]
-            st.line_chart(chart_data)
-
-            st.divider()
-
-st.divider()
-
-# Explain the backend script you built earlier!
-st.subheader("⚙️ Backend Alert Daemon")
-st.write("""
-In addition to the UI dashboard above, I engineered a continuous background process (`daemon.py`) that monitors these assets automatically.
-* **Continuous Polling:** Utilizes a `while True` loop with controlled sleep intervals to fetch API data.
-* **State Management:** Implements memory dictionaries to ensure users only receive one alert per day, preventing spam.
-* **Automated SMTP Routing:** Dynamically generates formatted HTML tables and routes them via Google's SMTP servers.
-* **Persistent Logging:** Writes trigger events locally to a CSV file for historical auditing.
-""")
     
           

@@ -35,7 +35,7 @@ with tab1:
     st.write("- **Languages:** Python")
     st.write("- **Cloud Compute:** AWS Console & Architecture")
     st.write("- **Frameworks & Tools:** Streamlit, APIs, Git/GitHub")
-    st.write("- **Concepts:** Data Structures & Algorithms, Quality Assurance, Data Virtualization, Machine Learning & Artificial Intelligence")
+    st.write("- **Concepts:** Data Structures & Algorithms, Data Virtualization, Machine Learning & Artificial Intelligence")
 
 with tab2:
     st.write("### Professional Credentials")
@@ -64,3 +64,4 @@ st.write("I am always open to discussing technology, apprenticeships, and softwa
 
 if st.button("Contact Me"):
     st.success("Please reach out at: manumwangi47@gmail.com, connect with me on [GitHub](https://github.com/Emwangi47) or [LinkedIn](https://www.linkedin.com/in/emanmwangi)!")
+    st.markdown("🌐 **View all my live apps on my [Streamlit Profile](https://share.streamlit.io/user/emwangi47)**")
